@@ -18,7 +18,7 @@ const userSchema = yup.object().shape({
       /^((?=.*[\W]){1})(?=.*\d)((?=.*[A-Z]){1}).*$/,
       "A senha deve conter pelo menos uma letra maiúscula, um número e um caractere especial!"
     )
-    .required("Informe a senha"),
+    .required("Informe a senha de cadastro"),
 });
 
 export default async (request: Request, response: Response, next: NextFunction) => {

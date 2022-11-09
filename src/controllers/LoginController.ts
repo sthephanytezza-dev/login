@@ -10,6 +10,8 @@ type User = {
 const login = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const {email, password} : User = request.body;
+      console.log(email, password);
+      
       const result = await loginService.login(email, password);
   
       response.status(200).json(result);

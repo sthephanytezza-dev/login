@@ -8,7 +8,7 @@ import signinMiddleware from './middleware/signin';
 
 const router = Router();
 
-router.post("/user", userValidate, UserController.createUser);
+router.post("/signup", userValidate, UserController.createUser);
 router.post("/signin", loginValidate, LoginController.login);
 router.get("/profile", signinMiddleware, UserController.getProfile);
 
