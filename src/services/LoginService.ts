@@ -1,6 +1,6 @@
+import jwt from 'jsonwebtoken';
 import * as bcrypt from "bcrypt";
 import userRepository from "../repositories/UserRepository";
-import generateToken from "../utils/generateToken";
 
 const login = async (email:string, password:string) => {
     try {
@@ -13,9 +13,12 @@ const login = async (email:string, password:string) => {
         
         if(!verify){
             throw {message: "Senha inválida!", status: 401};
-        }
-
-        const token = generateToken({ email: user.email });
+        }        
+        
+        const token = jwt.sign({email: user.email}, "ak_test_2B3mfqSl9WGJE74BcZFoQ1cnDUM4QZ" ?? "", {
+            //Expira em 24 horas
+            expiresIn: 86400
+        });        
 
         const {password:_, ...userLogin} = user;
         

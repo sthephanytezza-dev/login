@@ -21,6 +21,10 @@ const createUser = async (request: Request, response: Response, next: NextFuncti
 
 const getProfile = async (request: Request, response: Response, next: NextFunction) => {
   try {        
+    if(!response.locals.email){
+      throw {message: "E-mail de usuário não informado!", status: 401};
+    }
+
     const user = await userService.getUser(response.locals.email);
 
     if(!user) {
