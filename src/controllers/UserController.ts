@@ -19,21 +19,11 @@ const createUser = async (request: Request, response: Response, next: NextFuncti
     }
 };
 
-const getProfile = async (request: Request, response: Response, next: NextFunction) => {
+const getProfile = async (_request: Request, response: Response, next: NextFunction) => {
   try {        
-    if(!response.locals.email){
-      throw {message: "E-mail de usuário não informado!", status: 401};
-    }
-
-    const user = await userService.getUser(response.locals.email);
-
-    if(!user) {
-      throw {message: "Não autorizado!", status: 401};
-    }
-
-    const {password:_, ...userLogin} = user;
+    const user = await userService.getProfile(response.locals.email);
     
-    response.status(200).json(userLogin);
+    response.status(200).json(user);
 
   } catch (error) {
     next(new HttpException(error.status || 500, error.message, error.stack));

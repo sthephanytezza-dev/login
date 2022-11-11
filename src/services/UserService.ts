@@ -28,5 +28,26 @@ const getUser = async (email:string) => {
     }
 };
 
-export default { createUser, getUser };
+const getProfile = async (email: string) => {
+    try {        
+      if(!email){
+        throw {message: "E-mail de usuário não informado!", status: 401};
+      }
+  
+      const user = await userRepository.getUser(email);
+  
+      if(!user) {
+        throw {message: "Não autorizado!", status: 401};
+      }
+  
+      const {password:_, ...userLogin} = user;
+      
+      return userLogin;
+  
+    } catch (error) {
+      throw {message: error.message, status: error.status};
+    }
+  }
+
+export default { createUser, getUser, getProfile };
   

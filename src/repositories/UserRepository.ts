@@ -6,7 +6,7 @@ const createUser = async (email:string, name:string, password:string) => {
         const user = await knex("user").insert({ email, name, password });
         return user;
     } catch (error) {
-       throw {message: "Email repetido", status: 409};
+       throw {message: "Email repetido!", status: 409};
     }
 };
 

@@ -5,8 +5,10 @@ import userRepository from "../repositories/UserRepository";
 const login = async (email:string, password:string) => {
     try {
         const user = await userRepository.getUser(email);
+        console.log(user);
+        
         if(!user){
-            throw {message: "E-mail ou senha inválida!", status: 401};
+            throw {message: "E-mail inválido!", status: 401};
         }
         
         const verify = await bcrypt.compare(password, user.password);
@@ -15,7 +17,7 @@ const login = async (email:string, password:string) => {
             throw {message: "Senha inválida!", status: 401};
         }        
         
-        const token = jwt.sign({email: user.email}, "ak_test_2B3mfqSl9WGJE74BcZFoQ1cnDUM4QZ" ?? "", {
+        const token = jwt.sign({email: user.email}, process.env.KEY ?? "", {
             //Expira em 24 horas
             expiresIn: 86400
         });        
